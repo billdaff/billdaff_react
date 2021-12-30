@@ -1,28 +1,24 @@
-import logo from './logo.svg';
+import React, { Component, Fragment } from 'react';
 
 import Home from './components/home'
+import Resume from './components/resume'
+import Portfolio from './components/portfolio'
+import Contact from './components/contact'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Home></Home>
-    </div>
-  );
+class App extends Component {
+   render() {
+    return (
+      <div className="App">
+        <Fragment>
+          <Home></Home>
+          <Resume></Resume>
+          <Portfolio></Portfolio>
+          <Contact></Contact>
+        </Fragment>
+      </div>
+    );
+  }
 }
 
 export default App;

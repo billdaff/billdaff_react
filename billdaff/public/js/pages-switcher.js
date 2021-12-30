@@ -87,7 +87,7 @@ var PageTransitions = (function ($, options) {
     function getActiveSection() {
         if(location.hash === "") {
             return location.hash = defaultStartPage;
-        } 
+        }
         else {
             return location.hash;
         }
@@ -101,7 +101,7 @@ var PageTransitions = (function ($, options) {
         var navLink = $(item);
         navLink = navLink['0'];
         navLink = $(navLink.parentNode);
-            
+
         if(navLink) {
             $('ul.site-main-menu li').removeClass('active');
             navLink.addClass('active');
@@ -113,9 +113,25 @@ var PageTransitions = (function ($, options) {
         var ajaxLoadedContent = $('#page-ajax-loaded');
 
         function showContent() {
+            var ajaxLoadedContent = $('#page-ajax-loaded'+portfolioItem);
             ajaxLoadedContent.removeClass('rotateOutDownRight closed');
             ajaxLoadedContent.show();
             $('body').addClass('ajax-page-visible');
+        }
+        function showAjaxContent(portfolioItem = '') {
+            var ajaxLoadedContent = $('#page-ajax-loaded'+portfolioItem);
+            ajaxLoadedContent.removeClass('rotateOutDownRight closed hide');
+            ajaxLoadedContent.addClass('page-ajax-loaded');
+            ajaxLoadedContent.show();
+        }
+        function hideAjaxContent(portfolioItem = '') {
+            $('#page-ajax-loaded'+portfolioItem).addClass('rotateOutDownRight closed');
+            $('body').removeClass('ajax-page-visible');
+            setTimeout(function(){
+                $('#page-ajax-loaded'+portfolioItem).addClass('hide');
+            ajaxLoadedContent.removeClass('page-ajax-loaded');
+                ajaxLoadedContent.hide();
+            }, 500);
         }
 
         function hideContent() {
@@ -138,17 +154,18 @@ var PageTransitions = (function ($, options) {
         });
 
         $(document)
-            .on("click",".site-main-menu, #ajax-page-close-button", function (e) { // Hide Ajax Loaded Page on Navigation cleck and Close button
+            .on("click",".site-main-menu, .ajax-page-close-button", function (e) { // Hide Ajax Loaded Page on Navigation cleck and Close button
                 e.preventDefault();
-                hideContent();
-                location.hash = location.hash.split('/')[0];
+                hideAjaxContent('-'+e.currentTarget.dataset.close);
             })
             .on("click",".ajax-page-load", function () { // Show Ajax Loaded Page
-                var hash = location.hash.split('/')[0] + '/' + $(this).attr('href').substr(0,$(this).attr('href').length-5);
-                location.hash = hash;
-                showContent();
-
+                var hash = '-'+$(this).attr('href').substr(1,$(this).attr('href').length);
+                showAjaxContent(hash);
                 return false;
+            })
+            .on("click",".ajax-page-prev-next a", function (e) { // Show Ajax Loaded Page
+                e.preventDefault();
+                hideAjaxContent('-'+e.currentTarget.dataset.close);
             });
     }
 
@@ -454,7 +471,7 @@ var PageTransitions = (function ($, options) {
             currentPageId = $pageWrapper.data('current'), tempPageIndex,
             linkhref = $pageTrigger.attr('href').split("#"),
             gotoPage = linkhref[1];
-            
+
             tempPageIndex = currentPageId;
 
             // Current page to be removed.

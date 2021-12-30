@@ -1,0 +1,8 @@
+.item-description,
+.item-description p{
+  font-size: 12px;
+}
+.item-description ul {
+  margin: 0 0 10px;
+  padding: 0 0 0 15px;
+}

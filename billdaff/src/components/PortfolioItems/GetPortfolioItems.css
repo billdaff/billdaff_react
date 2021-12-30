@@ -1,0 +1,13 @@
+.portfolio-thumb {
+  height:205px;
+}
+.page-ajax-loaded {
+  height: fit-content;
+  position: absolute;
+  outline-color:#26d9ac;
+  outline-style: outset;
+  margin:5px;
+}
+.tags li{
+  padding-left:5px;
+}
