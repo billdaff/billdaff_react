@@ -80,7 +80,7 @@ class GetPortfolioItems extends Component {
                   </div>
 
                   <div className="ajax-page-title">
-                      <h1>{item.title}</h1>
+                      <h1 id={item.title.replace(/[\s.]/g, '-').toLowerCase()}>{item.title}</h1>
                   </div>
 
                   <div className="row">

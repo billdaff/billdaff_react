@@ -129,7 +129,7 @@ var PageTransitions = (function ($, options) {
             $('body').removeClass('ajax-page-visible');
             setTimeout(function(){
                 $('#page-ajax-loaded'+portfolioItem).addClass('hide');
-            ajaxLoadedContent.removeClass('page-ajax-loaded');
+                ajaxLoadedContent.removeClass('page-ajax-loaded');
                 ajaxLoadedContent.hide();
             }, 500);
         }
@@ -157,10 +157,14 @@ var PageTransitions = (function ($, options) {
             .on("click",".site-main-menu, .ajax-page-close-button", function (e) { // Hide Ajax Loaded Page on Navigation cleck and Close button
                 e.preventDefault();
                 hideAjaxContent('-'+e.currentTarget.dataset.close);
+                $(window).scrollTop(0);
+                // location.hash = e.currentTarget.dataset.close;
             })
             .on("click",".ajax-page-load", function () { // Show Ajax Loaded Page
                 var hash = '-'+$(this).attr('href').substr(1,$(this).attr('href').length);
                 showAjaxContent(hash);
+                $(window).scrollTop(0);
+                // location.hash = $(this).attr('href').substr(1,$(this).attr('href').length);
                 return false;
             })
             .on("click",".ajax-page-prev-next a", function (e) { // Show Ajax Loaded Page
