@@ -58,7 +58,7 @@ export default class Home extends Component {
                     <li><span className="title">Residence</span><span className="value">USA</span></li>
                     <li><span className="title">Address</span><span className="value">Brick, NJ</span></li>
                     <li><span className="title">E-mail</span><span className="value"><a href="mailto:billdafeldecker@gmail.com">billdafeldecker@gmail.com</a></span></li>
-                    <li><span className="title">Freelance</span><span className="value available">Available</span></li>
+                    <li><span className="title">Github</span><span className="value available"><a href="https://github.com/billdaff" target="_blank">https://github.com/billdaff</a></span></li>
                   </ul>
                 </div>
 
