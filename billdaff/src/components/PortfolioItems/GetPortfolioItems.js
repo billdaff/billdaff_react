@@ -34,6 +34,7 @@ class GetPortfolioItems extends Component {
         let prevIndex = await (portfolioJson[index-1] !== undefined ? portfolioJson[index-1] : portfolioJson[portfolioJson.length-1]);
         portfolioItem.next_item = (nextIndex !== undefined ) ? nextIndex.title.replace(/[\s.]/g, '-').toLowerCase() : '';
         portfolioItem.prev_item = (prevIndex !== undefined ) ? prevIndex.title.replace(/[\s.]/g, '-').toLowerCase() : '';
+        portfolioItem.field_project_type = '["all",'+portfolioItem.field_project_type.split(', ').map(s => '"'+s.replace(/[\s.]/g, '-').toLowerCase()+'"') +']';
         porfolioItems.push(portfolioItem);
       }
     });
@@ -57,7 +58,9 @@ class GetPortfolioItems extends Component {
         {
           portfolioItems.map(item =>
             <>
-              <figure key={'figure-'+item.title} className="item" data-groups={ item.field_project_type !== undefined ? '["all"'+ item.field_project_type.split(', ').map(s => ', "'+s.replace(/[\s.]/g, '-').toLowerCase()+'"') +']' : '["all"]'}>
+
+              {console.log(item.field_project_type)}
+              <figure key={'figure-'+item.title} className="item" data-groups={ item.field_project_type }>
                 <a className="ajax-page-load" href={'#'+item.title.replace(/[\s.]/g, '-').toLowerCase()}>
                   <img className="portfolio-thumb" src={item.clean_field_portfolio_images !== undefined ? 'https://drupal.billdaff.com/'+item.clean_field_portfolio_images.imgSrc : ''} alt={item.field_portfolio_images !== undefined ? 'https://drupal.billdaff.com/'+item.clean_field_portfolio_images.imgAlt : ''} />
                     <div>
