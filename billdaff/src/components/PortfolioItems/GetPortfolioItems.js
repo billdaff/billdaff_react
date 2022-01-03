@@ -19,7 +19,7 @@ class GetPortfolioItems extends Component {
     const empResonse = await fetch("https://drupal.billdaff.com/api/getEmployers");
     const empJson = await empResonse.json();
     const portfolioJson = await portfoilioResponse.json();
-    portfolioJson.map(async (portfolioItem,index) => {
+     const requests = portfolioJson.map(async (portfolioItem,index) => {
       empJson.map(async empItem => {
         if(portfolioItem.field_employer === empItem.tid){
           portfolioItem.field_employer = empItem.name;
@@ -36,6 +36,9 @@ class GetPortfolioItems extends Component {
         portfolioItem.prev_item = (prevIndex !== undefined ) ? prevIndex.title.replace(/[\s.]/g, '-').toLowerCase() : '';
         porfolioItems.push(portfolioItem);
       }
+    });
+    // Wait for all requests, and then setState
+    return Promise.all(requests).then(() => {
       this.setState({
         isLoaded : true,
         portfolioItems : porfolioItems
