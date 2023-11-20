@@ -19,8 +19,8 @@ class GetPortfolioItems extends Component {
     const empResonse = await fetch("https://drupal.billdaff.com/api/getEmployers");
     const empJson = await empResonse.json();
     const portfolioJson = await portfoilioResponse.json();
-     const requests = portfolioJson.map(async (portfolioItem,index) => {
-      empJson.map(async empItem => {
+     const requests = await portfolioJson.map(async (portfolioItem,index) => {
+      await empJson.map(empItem => {
         if(portfolioItem.field_employer === empItem.tid){
           portfolioItem.field_employer = empItem.name;
         }
@@ -39,7 +39,7 @@ class GetPortfolioItems extends Component {
       }
     });
     // Wait for all requests, and then setState
-    return Promise.all(requests).then(() => {
+    return await Promise.all(requests).then(() => {
       this.setState({
         isLoaded : true,
         portfolioItems : porfolioItems
@@ -58,8 +58,6 @@ class GetPortfolioItems extends Component {
         {
           portfolioItems.map(item =>
             <>
-
-              {console.log(item.field_project_type)}
               <figure key={'figure-'+item.title} className="item" data-groups={ item.field_project_type }>
                 <a className="ajax-page-load" href={'#'+item.title.replace(/[\s.]/g, '-').toLowerCase()}>
                   <img className="portfolio-thumb" src={item.clean_field_portfolio_images !== undefined ? 'https://drupal.billdaff.com/'+item.clean_field_portfolio_images.imgSrc : ''} alt={item.field_portfolio_images !== undefined ? 'https://drupal.billdaff.com/'+item.clean_field_portfolio_images.imgAlt : ''} />
@@ -109,7 +107,6 @@ class GetPortfolioItems extends Component {
                               </div>
                               <ul className="tags">
                                 {Parser(GetTechnologies(item.field_technologies))}
-
                               </ul>
                           </div>
                       </div>
