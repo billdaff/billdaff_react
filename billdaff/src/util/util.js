@@ -17,7 +17,7 @@
   export function GetTechnologies(technologies) {
     var techStr = '';
     technologies.split(', ').map((techItem, key) => (
-      techStr += `<li key=${key} ><a>'+ ${techItem} +'</a></li>`
+      techStr += `<li key="tech-${key}"><a>${techItem}</a></li>`
     ))
     return (
       techStr

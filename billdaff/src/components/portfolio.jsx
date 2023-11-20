@@ -24,8 +24,6 @@ export default class Portfolio extends Component {
                 <div id="portfolio_grid" className="portfolio-grid portfolio-masonry masonry-grid-3">
 
                   <GetPortfolioItems></GetPortfolioItems>
-
-
                 </div>
 
 

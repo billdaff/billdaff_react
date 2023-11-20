@@ -49,7 +49,7 @@ class GetProjectTypes extends Component {
         <ul id="portfolio_filters" className="portfolio-filters">
         {
           cleanTypes.map((item, index) => (
-            <li key={item} className={index === 0 ? 'active': ''}>
+            <li key={index} className={index === 0 ? 'active': ''}>
               <a className="filter btn btn-sm btn-link active" data-group={item.replace(/ /g, "-").toLowerCase()}>{item}</a>
             </li>
           ))
