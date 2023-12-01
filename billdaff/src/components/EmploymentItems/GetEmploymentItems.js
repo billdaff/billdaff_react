@@ -17,6 +17,9 @@ class GetEmploymentItems extends Component {
     .then(
       // handle the result
       (result) => {
+        result = result.sort((a,b)=>{
+          return new Date(b.field_dates_worked.split(',')[0].replace('-', '-01-')) - new Date(a.field_dates_worked.split(',')[0].replace('-', '-01-'))
+        })
         this.setState({
           isLoaded : true,
           employmentItems : result
