@@ -21,26 +21,37 @@ class GetPortfolioItems extends Component {
       const empResonse = await fetch("https://drupal.billdaff.com/api/getEmployers");
       const empJson = await empResonse.json();
       const portfolioJson = await portfoilioResponse.json();
-      portfolioJson.forEach(async (portfolioItem,index) => {
-        empJson.forEach(empItem => {
-          if(portfolioItem.field_employer === empItem.tid){
-            portfolioItem.field_employer = empItem.name;
+      await Promise.allSettled([
+        portfoilioResponse,
+        empResonse
+      ]);
+      await Promise.allSettled([
+        empJson,
+        portfolioJson
+      ]); 
+      await new Promise(async (resolve, reject) => {
+        portfolioJson.forEach(async (portfolioItem,index) => {
+          empJson.forEach(empItem => {
+            if(portfolioItem.field_employer === empItem.tid){
+              portfolioItem.field_employer = empItem.name;
+            }
+          });
+          if(portfolioItem.field_portfolio_images[0] !== undefined){
+            let imgResponse = await fetch("https://drupal.billdaff.com/api/getPortfolioImages/"+portfolioItem.field_portfolio_images[0]);
+            let imgJson = await imgResponse.json();
+            var [imgSrc, imgAlt] = imgJson[0].field_media_image !== undefined ? imgJson[0].field_media_image.split('||') : '';
+            portfolioItem.clean_field_portfolio_images = {imgSrc : imgSrc, imgAlt: imgAlt};
+            let nextIndex = await (portfolioJson[index+1] !== undefined ? portfolioJson[index+1] : portfolioJson[0]);
+            let prevIndex = await (portfolioJson[index-1] !== undefined ? portfolioJson[index-1] : portfolioJson[portfolioJson.length-1]);
+            portfolioItem.next_item = (nextIndex !== undefined ) ? nextIndex.title.replace(/[\s.]/g, '-').toLowerCase() : '';
+            portfolioItem.prev_item = (prevIndex !== undefined ) ? prevIndex.title.replace(/[\s.]/g, '-').toLowerCase() : '';
+            portfolioItem.field_project_type = '["all",'+portfolioItem.field_project_type.split(', ').map(s => '"'+s.replace(/[\s.]/g, '-').toLowerCase()+'"') +']';
+            portfolioItems.push(portfolioItem);
+            if(portfolioItems.length == portfolioJson.length) resolve();
           }
         });
-        if(portfolioItem.field_portfolio_images[0] !== undefined){
-          let imgResponse = await fetch("https://drupal.billdaff.com/api/getPortfolioImages/"+portfolioItem.field_portfolio_images[0]);
-          let imgJson = await imgResponse.json();
-          var [imgSrc, imgAlt] = imgJson[0].field_media_image !== undefined ? imgJson[0].field_media_image.split('||') : '';
-          portfolioItem.clean_field_portfolio_images = {imgSrc : imgSrc, imgAlt: imgAlt};
-          let nextIndex = await (portfolioJson[index+1] !== undefined ? portfolioJson[index+1] : portfolioJson[0]);
-          let prevIndex = await (portfolioJson[index-1] !== undefined ? portfolioJson[index-1] : portfolioJson[portfolioJson.length-1]);
-          portfolioItem.next_item = (nextIndex !== undefined ) ? nextIndex.title.replace(/[\s.]/g, '-').toLowerCase() : '';
-          portfolioItem.prev_item = (prevIndex !== undefined ) ? prevIndex.title.replace(/[\s.]/g, '-').toLowerCase() : '';
-          portfolioItem.field_project_type = '["all",'+portfolioItem.field_project_type.split(', ').map(s => '"'+s.replace(/[\s.]/g, '-').toLowerCase()+'"') +']';
-          portfolioItems.push(portfolioItem);
-          if(portfolioItems.length == portfolioJson.length) resolve();
-        }
       });
+      resolve();
     });
     this.setState({
       isLoaded : true,
