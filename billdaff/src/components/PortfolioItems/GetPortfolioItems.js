@@ -14,6 +14,7 @@ class GetPortfolioItems extends Component {
     }
   }
   async componentDidMount() {
+    let that = this;
     let portfolioItems = [];
     await new Promise(async (resolve, reject) => {
       const portfoilioResponse = await fetch("https://drupal.billdaff.com/api/portfolios");
@@ -45,9 +46,10 @@ class GetPortfolioItems extends Component {
       isLoaded : true,
       portfolioItems : portfolioItems
     });
+    timeout()
     function timeout() {
         setTimeout(function () {
-            this.setState({
+          that.setState({
               isLoaded : true,
               portfolioItems : portfolioItems
             });
