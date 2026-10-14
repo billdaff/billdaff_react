@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Example Agency",
+    "field_job_title": "Web Developer",
+    "field_dates_worked": "06-2015, 08-2019",
+    "field_location": "Trenton, NJ",
+    "description__value": "<p>Built client websites.</p>"
+  },
+  {
+    "name": "Sample Software Co",
+    "field_job_title": "Senior Developer",
+    "field_dates_worked": "09-2019",
+    "field_location": "Remote",
+    "description__value": "<p>Leads frontend work.</p>"
+  },
+  {
+    "name": "First Job LLC",
+    "field_job_title": "Junior Developer",
+    "field_dates_worked": "01-2010, 05-2015",
+    "field_location": "Brick, NJ",
+    "description__value": "<p>Maintained internal tools.</p>"
+  }
+]

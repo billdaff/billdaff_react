@@ -19,6 +19,30 @@ You may also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `yarn typecheck`
+
+Type-checks the app (`tsconfig.json`, covering `src/`) and the Playwright tests (`e2e/tsconfig.json`).\
+API response types live in `src/types/api.ts` and are shared with the e2e fixtures.
+
+### `yarn lint`
+
+Runs ESLint over `src/`, `e2e/` and the Playwright configs, failing on any warning.
+
+### `yarn test:e2e`
+
+Runs the Playwright end-to-end tests in `e2e/` against the dev server (started automatically on port 3000, or reused if already running) in Chromium, Firefox, WebKit and a mobile Chrome viewport.\
+The Drupal API (`https://drupal.billdaff.com/api`) is mocked from the hand-written fixtures in `e2e/fixtures/api`, so these tests do not need network access.
+
+First-time setup: `yarn install && npx playwright install`.
+
+- `yarn test:e2e --project=chromium` runs a single browser.
+- `yarn test:e2e:ui` opens Playwright's interactive UI mode.
+- `yarn test:e2e:report` opens the HTML report from the last run.
+- `yarn test:e2e:live` runs the smoke tests in `e2e/live` against the real API. Set `E2E_BASE_URL=https://billdaff.com` to test the deployed site instead of the dev server.
+
+Specs import `test` from `e2e/support/test.ts`, which mocks the API and fails the test on any uncaught page error. Use `test.use({ clockTime })` to run at a specific date, the `site` fixture (`e2e/support/SitePage.ts`) to navigate between sections, and `api.override(endpoint, handler)` to simulate API failures.\
+On macOS 14, Playwright only provides an outdated WebKit build, so the `webkit` project fails to launch locally; it runs in CI (see `Jenkinsfile` at the repository root).
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\

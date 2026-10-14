@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import GetEmploymentItems from './EmploymentItems/GetEmploymentItems'
 import GetResumeArticle from './ResumeArticle/GetResumeArticle'
+import ErrorBoundary from './ErrorBoundary'
+import { RESUME_ARTICLE_TITLES } from '../api'
 
 export default class Resume extends Component {
 
@@ -22,21 +24,22 @@ export default class Resume extends Component {
                     </div>
 
                     <div className="timeline">
-                      <GetEmploymentItems/>
+                      <ErrorBoundary><GetEmploymentItems/></ErrorBoundary>
                     </div>
                   </div>
                 </div>
               </div>
-              <GetResumeArticle article_title='Education' />
-              <GetResumeArticle article_title='Qualifications and Technology Experience' />
-              <GetResumeArticle article_title='Notable Projects' />
-              <GetResumeArticle article_title='Services and Solutions' />
+              {RESUME_ARTICLE_TITLES.map((title) => (
+                <ErrorBoundary key={title}>
+                  <GetResumeArticle article_title={title} />
+                </ErrorBoundary>
+              ))}
 
               <div className="row">
                 <div className="col-sm-12 col-md-12 col-lg-12">
                   <div className="block">
                     <div className="center download-resume">
-                      <a href="assets/DafeldeckerResume.pdf" target="_blank" className="btn btn-secondary">Download
+                      <a href="assets/DafeldeckerResume.pdf" target="_blank" rel="noreferrer" className="btn btn-secondary">Download
                         Resume</a>
                     </div>
                   </div>

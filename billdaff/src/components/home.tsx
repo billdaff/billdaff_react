@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getAge } from '../util/util.js'
+import { getAge } from '../util/util'
 
 export default class Home extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class Home extends Component {
               <div className="row">
                 <div className="col-sm-4 col-md-4 col-lg-4">
                   <div className="photo">
-                    <img src="images/photo.png" alt=""/>
+                    <img src="images/photo.png" alt="Bill Dafeldecker"/>
                   </div>
                 </div>
 
@@ -48,7 +48,7 @@ export default class Home extends Component {
                     <p>Hello! I’m Bill Dafeldecker. I'm constantly looking for new and exciting projects to create and develop. I like to look for the newest technologies to utilize that will bring the most benefit to a project.</p>
                   </div>
                   <div className="download-resume">
-                    <a href="assets/DafeldeckerResume.pdf" target="_blank" className="btn btn-secondary">Download Resume</a>
+                    <a href="assets/DafeldeckerResume.pdf" target="_blank" rel="noreferrer" className="btn btn-secondary">Download Resume</a>
                   </div>
                 </div>
 
@@ -58,7 +58,7 @@ export default class Home extends Component {
                     <li><span className="title">Residence</span><span className="value">USA</span></li>
                     <li><span className="title">Address</span><span className="value">Brick, NJ</span></li>
                     <li><span className="title">E-mail</span><span className="value"><a href="mailto:billdafeldecker@gmail.com">billdafeldecker@gmail.com</a></span></li>
-                    <li><span className="title">Github</span><span className="value available"><a href="https://github.com/billdaff" target="_blank">https://github.com/billdaff</a></span></li>
+                    <li><span className="title">Github</span><span className="value available"><a href="https://github.com/billdaff" target="_blank" rel="noreferrer">https://github.com/billdaff</a></span></li>
                   </ul>
                 </div>
 

@@ -84,9 +84,9 @@
 
 
     // On Document Load
-    $(document).on('ready', function () {
+    $(function () {
         // Initialize Portfolio grid
-        var $portfolio_container = $("#portfolio-grid");
+        var $portfolio_container = $("#portfolio_grid");
 
         $portfolio_container.imagesLoaded(function () {
             setTimeout(function () {

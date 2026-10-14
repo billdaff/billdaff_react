@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import GetPortfolioItems from './PortfolioItems/GetPortfolioItems'
 import GetProjectTypes from './PortfolioItems/GetProjectTypes'
-// import GetResumeArticle from './ResumeArticle/GetResumeArticle'
+import ErrorBoundary from './ErrorBoundary'
 
 export default class Portfolio extends Component {
 
@@ -18,12 +18,12 @@ export default class Portfolio extends Component {
 
               <div className="portfolio-content">
 
-                <GetProjectTypes></GetProjectTypes>
+                <ErrorBoundary><GetProjectTypes /></ErrorBoundary>
 
 
                 <div id="portfolio_grid" className="portfolio-grid portfolio-masonry masonry-grid-3">
 
-                  <GetPortfolioItems></GetPortfolioItems>
+                  <ErrorBoundary><GetPortfolioItems /></ErrorBoundary>
                 </div>
 
 

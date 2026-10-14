@@ -1448,17 +1448,22 @@ body > footer .copyrights {
 }
 
 .portfolio-filters li a,
-.portfolio-filters li a:hover {
+.portfolio-filters li a:hover,
+.portfolio-filters li button,
+.portfolio-filters li button:hover {
   color: #9e9e9e;
   text-decoration: none;
 }
 
-.portfolio-filters li a:hover {
+.portfolio-filters li a:hover,
+.portfolio-filters li button:hover {
   background-color: #eee;
 }
 
 .portfolio-filters li.active a,
-.portfolio-filters li.active a:hover {
+.portfolio-filters li.active a:hover,
+.portfolio-filters li.active button,
+.portfolio-filters li.active button:hover {
   background-color: #26d9ac;
   color: #fff;
 }
@@ -2093,7 +2098,8 @@ body > footer .copyrights {
   margin: 2px 0;
 }
 
-.tags li a {
+.tags li a,
+.tags li span {
   font-size: 13px;
   color: #757575;
   padding: 3px 8px;

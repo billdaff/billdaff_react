@@ -1,0 +1,8 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "target": "es2025",
+    "types": ["node"]
+  },
+  "include": ["**/*.ts", "../playwright.config.ts", "../playwright.live.config.ts", "../src/types/**/*.ts"]
+}

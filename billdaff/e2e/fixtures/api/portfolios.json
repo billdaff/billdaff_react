@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Alpha Site",
+    "field_employer": "1",
+    "field_portfolio_images": ["101"],
+    "field_project_type": "Web Development",
+    "body": "<p>Alpha description.</p>",
+    "field_technologies": "React, Drupal"
+  },
+  {
+    "title": "Beta Report",
+    "field_employer": "2",
+    "field_portfolio_images": ["102"],
+    "field_project_type": "Data Reporting",
+    "body": "<p>Beta description.</p>",
+    "field_technologies": "PHP, MySQL"
+  },
+  {
+    "title": "Gamma.App",
+    "field_employer": "1",
+    "field_portfolio_images": ["103"],
+    "field_project_type": "Web Development, Data Reporting",
+    "body": "<p>Gamma description.</p>",
+    "field_technologies": "Node.js"
+  }
+]
