@@ -14,35 +14,57 @@
     }
 
     // Portfolio subpage filters
+    // Called by React (GetPortfolioItems) once the portfolio items have been
+    // fetched and rendered, since they don't exist yet on document ready.
     function portfolio_init() {
-        var portfolio_grid = $('#portfolio_grid'),
-            portfolio_filter = $('#portfolio_filters');
+        var portfolio_grid = $('#portfolio_grid');
 
-        if (portfolio_grid) {
+        if (!portfolio_grid.length) {
+            return;
+        }
+
+        portfolio_grid.imagesLoaded(function () {
+            if (portfolio_grid.data('shuffle')) {
+                portfolio_grid.shuffle('destroy');
+            }
 
             portfolio_grid.shuffle({
                 speed: 450,
                 itemSelector: 'figure'
             });
 
-            $('.site-main-menu').on("click", "a", function (e) {
-                portfolio_grid.shuffle('update');
-            });
+            $('#portfolio_filters .filter').parent().removeClass('active');
+            $('#portfolio_filters .filter').first().parent().addClass('active');
 
+            portfolio_grid.children('figure').each(function () { $(this).hoverdir(); });
 
-            portfolio_filter.on("click", ".filter", function (e) {
-                portfolio_grid.shuffle('update');
-                e.preventDefault();
-                $('#portfolio_filters .filter').parent().removeClass('active');
-                $(this).parent().addClass('active');
-                portfolio_grid.shuffle('shuffle', $(this).attr('data-group'));
-                setTimeout(function () {
-                    subpages_resize();
-                }, 500);
-            });
-
-        }
+            subpages_resize();
+        });
     }
+    window.initPortfolioGrid = portfolio_init;
+
+    // Delegated so they work no matter when React renders the grid and filters.
+    $(document).on("click", ".site-main-menu a", function () {
+        var portfolio_grid = $('#portfolio_grid');
+        if (portfolio_grid.data('shuffle')) {
+            portfolio_grid.shuffle('update');
+        }
+    });
+
+    $(document).on("click", "#portfolio_filters .filter", function (e) {
+        var portfolio_grid = $('#portfolio_grid');
+        e.preventDefault();
+        if (!portfolio_grid.data('shuffle')) {
+            return;
+        }
+        portfolio_grid.shuffle('update');
+        $('#portfolio_filters .filter').parent().removeClass('active');
+        $(this).parent().addClass('active');
+        portfolio_grid.shuffle('shuffle', $(this).attr('data-group'));
+        setTimeout(function () {
+            subpages_resize();
+        }, 500);
+    });
     // Hide Mobile menu
     function mobileMenuHide() {
         var windowWidth = $(window).width();
@@ -85,18 +107,6 @@
 
     // On Document Load
     $(function () {
-        // Initialize Portfolio grid
-        var $portfolio_container = $("#portfolio_grid");
-
-        $portfolio_container.imagesLoaded(function () {
-            setTimeout(function () {
-                portfolio_init(this);
-            }, 500);
-        });
-
-        // Portfolio hover effect init
-        $(' #portfolio_grid > figure ').each(function () { $(this).hoverdir(); });
-
         // Blog grid init
         setTimeout(function () {
             var $container = $(".blog-masonry");

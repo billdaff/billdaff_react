@@ -65,7 +65,9 @@ class GetPortfolioItems extends Component<Record<string, never>, GetPortfolioIte
           image: await getPortfolioImage(portfolio.field_portfolio_images[0]),
         }))
       );
-      this.setState({ isLoaded: true, portfolioItems });
+      // The Shuffle grid (public/js/main.js) can only lay out items that exist,
+      // so initialize it after they've rendered rather than on document ready.
+      this.setState({ isLoaded: true, portfolioItems }, () => window.initPortfolioGrid?.());
     } catch (error) {
       this.setState({ isLoaded: true, error: error as Error });
     }
