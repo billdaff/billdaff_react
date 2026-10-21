@@ -3,6 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 const BASE_URL = process.env.E2E_BASE_URL || 'http://localhost:3000';
 const LIVE_SPECS = /[\\/]live[\\/]/;
 const MOBILE_SPECS = /mobile-.*\.spec\.ts/;
+// perf tests use Chrome-only APIs
+const PERF_SPECS = /-performance\.spec\.ts/;
 
 export const reporters = (suite: string) => [
   ['list'] as const,
@@ -28,8 +30,8 @@ export default defineConfig({
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] }, testIgnore: [LIVE_SPECS, MOBILE_SPECS] },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] }, testIgnore: [LIVE_SPECS, MOBILE_SPECS] },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] }, testIgnore: [LIVE_SPECS, MOBILE_SPECS] },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] }, testIgnore: [LIVE_SPECS, MOBILE_SPECS, PERF_SPECS] },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] }, testIgnore: [LIVE_SPECS, MOBILE_SPECS, PERF_SPECS] },
     { name: 'mobile-chrome', use: { ...devices['Pixel 7'] }, testMatch: MOBILE_SPECS },
   ],
   webServer: process.env.E2E_BASE_URL
